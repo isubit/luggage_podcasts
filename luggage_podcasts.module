@@ -1,0 +1,126 @@
+<?php
+/**
+ * @file
+ * Code for the luggage_podcasts feature.
+ */
+
+include_once 'luggage_podcasts.features.inc';
+
+/**
+ * Implements hook_theme()
+ */
+function luggage_podcasts_theme($existing, $type, $theme, $path) {
+  return array(
+    'luggage_podcasts_player' => array(
+      'render element'  => 'elements',
+      'template' => 'podcast-player',
+      'path' => drupal_get_path('module','luggage_podcasts') . '/templates'
+    )
+  );
+}
+
+/**
+ * Implements template_preprocess_node()
+ */
+
+function luggage_podcasts_preprocess_node(&$variables) {
+  if ($variables['node']->type == 'podcast' && $variables['view_mode'] == 'full') {
+    $variables['content']['#node'] = $variables['node'];
+    $variables['content']['#theme_wrappers'][] = 'luggage_podcasts_player';
+  }
+}
+
+function template_preprocess_luggage_podcasts_player(&$variables) {
+
+  // Build player options
+  $node = $variables['elements']['#node'];
+
+  $options = array(
+    'alwaysShowHours' => TRUE,
+    'hidesharebutton' => TRUE,
+    'width' => 'auto',
+    'activeTab' => 'info',
+  );
+
+  $show = taxonomy_term_load($node->field_podcast_show[LANGUAGE_NONE][0]['tid']);
+
+  $options['show']['title'] = $show->name;
+
+  if (!empty($show->field_show_subtitle[LANGUAGE_NONE][0]['value'])) {
+    $options['show']['subtitle'] = $show->field_show_subtitle[LANGUAGE_NONE][0]['value'];
+  }
+
+  if (!empty($show->description)) {
+    $options['show']['summary'] = $show->description;
+  }
+
+  $options['show']['poster'] = file_create_url($show->field_show_logo[LANGUAGE_NONE][0]['uri']);
+
+  $options['show']['url'] = url('taxonomy/term/' . $show->tid, array('absolute' => TRUE));
+
+  $file_url = file_create_url($node->field_podcast_file[LANGUAGE_NONE][0]['uri']);
+
+  $title = '';
+  if (!empty($node->field_podcast_season[LANGUAGE_NONE][0]['value'])) {
+    $title = '(S' . $node->field_podcast_season[LANGUAGE_NONE][0]['value'] . ':' . 'E' . $node->field_podcast_episode[LANGUAGE_NONE][0]['value'] . '): ' . $node->title;
+  }
+  else {
+    $title = '(E' . $node->field_podcast_episode[LANGUAGE_NONE][0]['value'] . '): ' . $node->title;
+  }
+
+  $options['title'] = $title;
+
+  $options['subtitle'] = format_date($node->created, 'custom', 'm/d/Y');
+
+  $options['summary'] = $node->field_podcast_description[LANGUAGE_NONE][0]['value'];
+  $options['poster'] = $GLOBALS['base_url'] . '/' . drupal_get_path('module', 'luggage_podcasts') . '/images/default-avatar.jpg';
+  $options['permalink'] = url('node/' . $node->nid, array('absolute' => TRUE));
+
+  $file_id3_info = views_rss_itunes_get_file_info($node->field_podcast_file[LANGUAGE_NONE][0]['uri']);
+
+  if (!empty($file_id3_info) && isset($file_id3_info['playtime_seconds'])) {
+    $options['duration'] = format_date((int) $file_id3_info['playtime_seconds'], 'custom', 'H:i:s', 'GMT');
+  }
+
+  $options['publicationDate'] = format_date($node->created, 'custom', 'c');
+
+  if (!empty($node->field_podcast_chapters)) {
+    foreach ($node->field_podcast_chapters[LANGUAGE_NONE] as $chapter_delta => $chapter_item) {
+      // field_podcast_chapters_time format is hh:mm:ss
+      // start format is hh:mm:ss.xxx where xxx is the number of milliseconds
+      $options['chapters'][] = array(
+        'start' => $chapter_item['field_podcast_chapters_time'][LANGUAGE_NONE][0]['value'] . '.000',
+        'title' => $chapter_item['field_podcast_chapters_title'][LANGUAGE_NONE][0]['value'],
+        'url' => $chapter_item['field_podcast_chapters_url'][LANGUAGE_NONE][0]['url'],
+      );
+    }
+  }
+
+  $options['sources'][] = array(
+    'src' => $file_url,
+    'type' => 'audio/mp3'
+  );
+
+  $options['downloads'][] = array(
+    'name' => 'MP3',
+    'size' => $node->field_podcast_file[LANGUAGE_NONE][0]['filesize'],
+    'url' => $file_url,
+    'dlurl' => $file_url,
+  );
+
+  // Add player js
+
+  $library_dir = $GLOBALS['base_url'] . '/' . libraries_get_path('podlove-web-player');
+  drupal_add_js(array('luggage_podcasts' => array('library_dir' => $library_dir)), 'setting');
+  drupal_add_js(libraries_get_path('podlove-web-player') . '/js/podlove-web-moderator.min.js');
+  drupal_add_js(drupal_get_path('module', 'luggage_podcasts') . '/js/load_players.js', array('scope' => 'footer'));
+
+  // Set template variables
+  
+  $variables['content'] = $variables['elements']['#children'];
+  $variables['player_id'] = drupal_html_id($node->nid);
+  $variables['library_dir'] = $library_dir;
+  $variables['file_url'] = $file_url;
+  $variables['options_json'] = drupal_json_encode($options);
+
+}
