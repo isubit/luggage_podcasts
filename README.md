@@ -15,13 +15,15 @@ rm getid3-1.8.5-20110218.zip
 mv getid3-1.8.5-20110218 getid3
 rm -rf getid3/demos
 
-git clone https://github.com/njbooher/podlove-web-player-dist.git podlove-web-player
+git clone https://github.com/isubit/luggage_podcasts_player.git podlove-web-player
 
 cd $DRUPAL_ROOT/sites/all/modules
 
 # this specific version is required by views_rss_itunes
 drush dl getid3-7.x-1.0
 drush en getid3
+
+cd luggage
 
 git clone https://github.com/isubit/luggage_podcasts
 drush en luggage_podcasts
