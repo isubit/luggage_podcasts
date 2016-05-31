@@ -152,6 +152,7 @@ function luggage_podcasts_views_rss_channel_elements_alter(&$elements) {
   // Our generic element preprocessor already handles this
   unset($elements['views_rss_core']['category']['preprocess functions']);
 
+  $elements['views_rss_core']['link']['preprocess functions'] = array('luggage_podcasts_preprocess_views_rss_core_channel_link');
   $elements['views_rss_core']['image']['preprocess functions'] = array('luggage_podcasts_preprocess_views_rss_core_channel_image');
 
   $show_field_names = array(
@@ -342,6 +343,16 @@ function luggage_podcasts_preprocess_views_rss_channel_element_value(&$variables
 }
 
 /**
+ * Preprocess function for channel <link> element
+ *
+ * Replaces views_rss_core_preprocess_channel_link. The original used the site
+ * home page, while this links to the podcast's page
+ */
+function luggage_podcasts_preprocess_views_rss_core_channel_link(&$variables) {
+  $variables['elements'][0]['value'] = url($variables['view']->get_url(NULL, $variables['view']->display['show_page']->handler->get_path()), array('absolute' => TRUE));
+}
+
+/**
  * Preprocess function for channel <image> element
  *
  * Replaces views_rss_core_preprocess_channel_image. The original has hardcoded
@@ -368,7 +379,7 @@ function luggage_podcasts_preprocess_views_rss_core_channel_image(&$variables) {
   $description = $variables['elements'][0]['value'];
 
   // Get value of channel <title> element from its preprocess function.
-  views_rss_core_preprocess_channel_link($variables);
+  luggage_podcasts_preprocess_views_rss_core_channel_link($variables);
   $link = $variables['elements'][0]['value'];
 
   // Create subelements array.
