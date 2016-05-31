@@ -160,6 +160,7 @@ function luggage_podcasts_views_default_views() {
   /* Display: iTunes Feed */
   $handler = $view->new_display('feed', 'iTunes Feed', 'itunes');
   $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = '%1';
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['style_plugin'] = 'rss_fields';
   $handler->display->display_options['style_options']['channel'] = array(
