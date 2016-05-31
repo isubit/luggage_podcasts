@@ -127,3 +127,264 @@ function template_preprocess_luggage_podcasts_player(&$variables) {
   $variables['options_json'] = drupal_json_encode($options);
 
 }
+
+/**
+ * Implements hook_views_rss_channel_elements_alter().
+ *
+ * Channel element settings forms in views_rss_core and views_rss_itunes are text
+ * fields or select boxes with hard-coded options
+ *
+ * This modifies all configurable elements defined by these modules to be select
+ * boxes for term fields in the Show vocabulary defined by this module. The term
+ * the field values are eventually fetched from is the contextual filter on the
+ * view. A preprocess function that takes care of this is prepended to each
+ * element so that the expected values are available to the preprocess functions
+ * already defined for these elements
+ */
+function luggage_podcasts_views_rss_channel_elements_alter(&$elements) {
+
+  // The default title is unconfigurable and uses the site title
+  unset($elements['views_rss_core']['title']['configurable']);
+  unset($elements['views_rss_core']['title']['preprocess functions']);
+
+  // The default category preprocess function expects a comma delimited list of
+  // terms that it turns into individual elements
+  // Our generic element preprocessor already handles this
+  unset($elements['views_rss_core']['category']['preprocess functions']);
+
+  $elements['views_rss_core']['image']['preprocess functions'] = array('luggage_podcasts_preprocess_views_rss_core_channel_image');
+
+  $show_field_names = array(
+    '' => '--',
+    'name' => 'Name',
+    'description' => 'Description'
+  );
+
+  foreach (field_info_instances('taxonomy_term', 'podcast_show') as $field_name => $field_info) {
+    $show_field_names[$field_name] = $field_info['label'];
+  }
+
+  $element_providers = array('views_rss_core', 'views_rss_itunes');
+
+  foreach ($element_providers as $provider) {
+
+    foreach (array_keys($elements[$provider]) as $element_id) {
+
+      $element_info = &$elements[$provider][$element_id];
+
+      if (!isset($element_info['configurable']) || $element_info['configurable']) {
+
+        $element_info['settings form'] = array(
+          '#type' => 'select',
+          '#options' => $show_field_names
+        );
+
+        if (isset($element_info['settings form options callback'])) {
+          unset($element_info['settings form options callback']);
+        }
+
+        if (empty($element_info['preprocess functions'])) {
+          $element_info['preprocess functions'] = array();
+        }
+
+        array_unshift($element_info['preprocess functions'], 'luggage_podcasts_preprocess_views_rss_channel_element_value');
+
+      }
+
+    }
+
+  }
+
+}
+
+/**
+ * Implements hook_views_rss_options_form_validate().
+ *
+ * views_rss_core tries to validate the values of the channel image and channel
+ * docs elements on the settings form but the term field values aren't available
+ * until rendering the view because they come from the contextual filter.
+ *
+ * These validators are also unnecessary. The image validator checks that the URL
+ * is valid, which ours is because it comes from a file field. It also checks that
+ * the width and height of the image match those specified by the RSS standard. We
+ * enforce this check in the filefield settings.
+ *
+ * To work around the views_rss_core form validator, we stash the real values of
+ * channel image and channel docs elements and set them value to empty. Then in a s
+ * submit handler we re-set them to the real values.
+ */
+function luggage_podcasts_views_rss_options_form_validate($form, &$form_state) {
+
+  $form_state['luggage_podcasts'] = array();
+
+  if (!empty($form_state['values']['style_options']['channel']['core']['views_rss_core']['image'])) {
+    $form_state['luggage_podcasts']['image'] = $form_state['values']['style_options']['channel']['core']['views_rss_core']['image'];
+    $form_state['values']['style_options']['channel']['core']['views_rss_core']['image'] = '';
+  }
+
+  if (!empty($form_state['values']['style_options']['channel']['core']['views_rss_core']['docs'])) {
+    $form_state['luggage_podcasts']['docs'] = $form_state['values']['style_options']['channel']['core']['views_rss_core']['docs'];
+    $form_state['values']['style_options']['channel']['core']['views_rss_core']['docs'] = '';
+  }
+
+}
+
+/**
+ * Implements hook_views_rss_options_form_submit().
+ *
+ * This restores the real values for the channel image and channel docs elements
+ * that were stashed during validation.
+ */
+function luggage_podcasts_views_rss_options_form_submit($form, &$form_state) {
+
+  if (isset($form_state['values']['style_options']['channel']['core']['views_rss_core']['image']) && !empty($form_state['luggage_podcasts']['image'])) {
+    $form_state['values']['style_options']['channel']['core']['views_rss_core']['image'] = $form_state['luggage_podcasts']['image'];
+  }
+
+  if (isset($form_state['values']['style_options']['channel']['core']['views_rss_core']['docs']) && !empty($form_state['luggage_podcasts']['docs'])) {
+    $form_state['values']['style_options']['channel']['core']['views_rss_core']['docs'] = $form_state['luggage_podcasts']['docs'];
+  }
+
+  unset($form_state['luggage_podcasts']);
+
+}
+
+/**
+ * Preprocess function for views_rss_core and views_rss_itunes channel elements
+ *
+ * This replaces the term field name configured in the views settings with the value
+ * of that field from the term received as the contextual filter
+ */
+function luggage_podcasts_preprocess_views_rss_channel_element_value(&$variables) {
+
+  // No value = no preprocessing.
+  if (empty($variables['elements'][0]['value'])) {
+    return;
+  }
+
+  $elements = array();
+  $element_key = $variables['elements'][0]['key'];
+
+  $term = taxonomy_term_load($variables['view']->argument['field_podcast_show_tid']->get_value());
+  $term_field_name = $variables['elements'][0]['value'];
+
+  if ($term_field_name == 'name') {
+    $elements[] = array(
+      'key' => $element_key,
+      'value' => $term->name
+    );
+  } elseif ($term_field_name == 'description') {
+    $elements[] = array(
+      'key' => $element_key,
+      'value' => $term->description
+    );
+  } else {
+
+    $term_field = $term->{$term_field_name}[LANGUAGE_NONE];
+    $field_map = field_info_field_map();
+    $term_field_type = $field_map[$term_field_name]['type'];
+
+    // the itunes:category element was originally a select box allowing up to 3 options
+    // and the preprocess function for that element expects $variables['elements'][0]['value']
+    // to be an array with all 3 values that it converts into a individual elements itself
+    if ($element_key == 'itunes:category') {
+      $elements[] = array(
+        'key' => $element_key,
+        'value' => array()
+      );
+    }
+
+    foreach($term_field as $delta => $field_value) {
+
+      switch ($term_field_type) {
+
+        case 'image':
+          $elements[] = array(
+            'key' => $element_key,
+            'value' => substr(file_create_url($field_value['uri']), strlen($GLOBALS['base_url'] . '/'))
+          );
+          break;
+
+        case 'email':
+          $elements[] = array(
+            'key' => $element_key,
+            'value' => $field_value['email']
+          );
+          break;
+
+        case 'taxonomy_term_reference':
+          if ($element_key == 'itunes:category') {
+            $elements[0]['value'][] = $field_value['tid'];
+          } else {
+            $value_term = taxonomy_term_load($field_value['tid']);
+            $elements[] = array(
+              'key' => $element_key,
+              'value' => $value_term->name
+            );
+          }
+          break;
+
+        default:
+          $elements[] = array(
+            'key' => $element_key,
+            'value' => $field_value['value']
+          );
+          break;
+
+      }
+
+    }
+
+  }
+
+  $variables['elements'] = $elements;
+
+}
+
+/**
+ * Preprocess function for channel <image> element
+ *
+ * Replaces views_rss_core_preprocess_channel_image. The original has hardcoded
+ * values for the title and description, while this replaces them with field values
+ * from the contextual filter term
+ */
+function luggage_podcasts_preprocess_views_rss_core_channel_image(&$variables) {
+
+  // No value = no preprocessing.
+  if (empty($variables['elements'][0]['value'])) {
+    return;
+  }
+
+  $path = $variables['elements'][0]['value'];
+
+  // Get value of channel <title> element from its preprocess function.
+  $variables['elements'][0]['value'] = $variables['item']['core']['views_rss_core']['title'];
+  luggage_podcasts_preprocess_views_rss_channel_element_value($variables);
+  $title = $variables['elements'][0]['value'];
+
+  // Get value of channel <description> element from its preprocess function.
+  $variables['elements'][0]['value'] = $variables['item']['core']['views_rss_core']['description'];
+  luggage_podcasts_preprocess_views_rss_channel_element_value($variables);
+  $description = $variables['elements'][0]['value'];
+
+  // Get value of channel <title> element from its preprocess function.
+  views_rss_core_preprocess_channel_link($variables);
+  $link = $variables['elements'][0]['value'];
+
+  // Create subelements array.
+  $variables['elements'][0]['value'] = array(
+    'url' => file_create_url($path),
+    'title' => $title,
+    'link' => $link,
+  );
+
+  $variables['elements'][0]['value']['description'] = $description;
+
+  // Get image width and height.
+  $image = image_load($path);
+  if (!empty($image)) {
+    $variables['elements'][0]['value']['width'] = $image->info['width'];
+    $variables['elements'][0]['value']['height'] = $image->info['height'];
+  }
+
+}

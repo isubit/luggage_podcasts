@@ -165,13 +165,14 @@ function luggage_podcasts_views_default_views() {
   $handler->display->display_options['style_options']['channel'] = array(
     'core' => array(
       'views_rss_core' => array(
-        'description' => '',
+        'title' => 'name',
+        'description' => 'description',
         'language' => '',
-        'category' => '',
-        'image' => '',
-        'copyright' => '',
-        'managingEditor' => '',
-        'webMaster' => '',
+        'category' => 'field_show_itunes_category',
+        'image' => 'field_show_logo_rss',
+        'copyright' => 'field_show_copyright',
+        'managingEditor' => 'field_show_author_email',
+        'webMaster' => 'field_show_author_email',
         'generator' => '',
         'docs' => '',
         'cloud' => '',
@@ -182,17 +183,17 @@ function luggage_podcasts_views_default_views() {
     ),
     'itunes' => array(
       'views_rss_itunes' => array(
-        'subtitle' => '',
+        'subtitle' => 'field_show_subtitle',
         'summary' => '',
-        'category' => '',
+        'category' => 'field_show_itunes_category',
         'keywords' => '',
-        'image' => '',
-        'author' => '',
-        'explicit' => '',
+        'image' => 'field_show_logo',
+        'author' => 'field_show_author_name',
+        'explicit' => 'field_show_itunes_explicit',
         'block' => '',
         'complete' => '',
         'new-feed-url' => '',
-        'owner' => '',
+        'owner' => 'field_show_itunes_owner',
       ),
     ),
   );
@@ -213,7 +214,7 @@ function luggage_podcasts_views_default_views() {
     'itunes' => array(
       'views_rss_itunes' => array(
         'subtitle' => 'title',
-        'summary' => 'field_podcast_description',
+        'summary' => '',
         'duration' => 'field_podcast_file_1',
         'keywords' => '',
         'image' => '',
@@ -305,10 +306,12 @@ function luggage_podcasts_views_default_views() {
   $handler->display->display_options['fields']['term_node_tid']['label'] = '';
   $handler->display->display_options['fields']['term_node_tid']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['term_node_tid']['type'] = 'rss_category';
+  $handler->display->display_options['fields']['term_node_tid']['limit'] = TRUE;
   $handler->display->display_options['fields']['term_node_tid']['vocabularies'] = array(
-    'category' => 0,
-    'tags' => 0,
+    'category' => 'category',
+    'tags' => 'tags',
     'views_rss_itunes_category' => 0,
+    'podcast_show' => 0,
   );
   $handler->display->display_options['fields']['term_node_tid']['rss_domain'] = 'alias';
   /* Field: item:pubDate */
