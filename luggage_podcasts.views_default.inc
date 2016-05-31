@@ -360,6 +360,10 @@ function luggage_podcasts_views_default_views() {
   $handler->display->display_options['arguments']['field_podcast_show_tid']['validate_options']['type'] = 'convert';
   $handler->display->display_options['arguments']['field_podcast_show_tid']['validate_options']['transform'] = TRUE;
   $handler->display->display_options['path'] = 'podcasts/%/rss.xml';
+  $handler->display->display_options['displays'] = array(
+    'show_page' => 'show_page',
+    'default' => 0,
+  );
   $handler->display->display_options['sitename_title'] = 0;
   $export['luggage_podcasts'] = $view;
 
