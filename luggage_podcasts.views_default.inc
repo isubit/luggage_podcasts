@@ -172,8 +172,8 @@ function luggage_podcasts_views_default_views() {
         'category' => 'field_show_itunes_category',
         'image' => 'field_show_logo_rss',
         'copyright' => 'field_show_copyright',
-        'managingEditor' => 'field_show_author_email',
-        'webMaster' => 'field_show_author_email',
+        'managingEditor' => '',
+        'webMaster' => '',
         'generator' => '',
         'docs' => '',
         'cloud' => '',
@@ -184,8 +184,8 @@ function luggage_podcasts_views_default_views() {
     ),
     'itunes' => array(
       'views_rss_itunes' => array(
-        'subtitle' => 'field_show_subtitle',
-        'summary' => '',
+        'subtitle' => '',
+        'summary' => 'description',
         'category' => 'field_show_itunes_category',
         'keywords' => '',
         'image' => 'field_show_logo',
@@ -204,7 +204,7 @@ function luggage_podcasts_views_default_views() {
         'title' => 'title',
         'link' => 'path',
         'description' => 'field_podcast_description',
-        'author' => '',
+        'author' => 'field_show_author_name',
         'category' => 'term_node_tid',
         'comments' => '',
         'enclosure' => 'field_podcast_file',
@@ -219,7 +219,7 @@ function luggage_podcasts_views_default_views() {
         'duration' => 'field_podcast_file_1',
         'keywords' => '',
         'image' => '',
-        'author' => '',
+        'author' => 'field_show_author_name',
         'isClosedCaptioned' => '',
         'explicit' => 'nothing',
         'block' => '',
@@ -231,6 +231,12 @@ function luggage_podcasts_views_default_views() {
     'absolute_paths' => 1,
     'feed_in_links' => 0,
   );
+  $handler->display->display_options['defaults']['relationships'] = FALSE;
+  /* Relationship: Content: Show (field_podcast_show) */
+  $handler->display->display_options['relationships']['field_podcast_show_tid']['id'] = 'field_podcast_show_tid';
+  $handler->display->display_options['relationships']['field_podcast_show_tid']['table'] = 'field_data_field_podcast_show';
+  $handler->display->display_options['relationships']['field_podcast_show_tid']['field'] = 'field_podcast_show_tid';
+  $handler->display->display_options['relationships']['field_podcast_show_tid']['required'] = TRUE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Content: Season */
   $handler->display->display_options['fields']['field_podcast_season']['id'] = 'field_podcast_season';
@@ -342,6 +348,15 @@ function luggage_podcasts_views_default_views() {
   $handler->display->display_options['fields']['nothing']['label'] = '';
   $handler->display->display_options['fields']['nothing']['alter']['text'] = 'clean';
   $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
+  /* Field: item:author */
+  $handler->display->display_options['fields']['field_show_author_name']['id'] = 'field_show_author_name';
+  $handler->display->display_options['fields']['field_show_author_name']['table'] = 'field_data_field_show_author_name';
+  $handler->display->display_options['fields']['field_show_author_name']['field'] = 'field_show_author_name';
+  $handler->display->display_options['fields']['field_show_author_name']['relationship'] = 'field_podcast_show_tid';
+  $handler->display->display_options['fields']['field_show_author_name']['ui_name'] = 'item:author';
+  $handler->display->display_options['fields']['field_show_author_name']['label'] = '';
+  $handler->display->display_options['fields']['field_show_author_name']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_show_author_name']['type'] = 'text_plain';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: Content: Show (field_podcast_show) */
   $handler->display->display_options['arguments']['field_podcast_show_tid']['id'] = 'field_podcast_show_tid';
