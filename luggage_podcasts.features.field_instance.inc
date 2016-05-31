@@ -483,6 +483,105 @@ function luggage_podcasts_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance:
+  // 'taxonomy_term-podcast_show-field_show_author_email'.
+  $field_instances['taxonomy_term-podcast_show-field_show_author_email'] = array(
+    'bundle' => 'podcast_show',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'email',
+        'settings' => array(),
+        'type' => 'email_default',
+        'weight' => 6,
+      ),
+    ),
+    'entity_type' => 'taxonomy_term',
+    'field_name' => 'field_show_author_email',
+    'label' => 'Author Email',
+    'required' => 1,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'email',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'email_textfield',
+      'weight' => 6,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'taxonomy_term-podcast_show-field_show_author_name'.
+  $field_instances['taxonomy_term-podcast_show-field_show_author_name'] = array(
+    'bundle' => 'podcast_show',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 5,
+      ),
+    ),
+    'entity_type' => 'taxonomy_term',
+    'field_name' => 'field_show_author_name',
+    'label' => 'Author Name',
+    'required' => 1,
+    'settings' => array(
+      'better_formats' => array(
+        'allowed_formats' => array(
+          'ds_code' => 'ds_code',
+          'filtered_html' => 'filtered_html',
+          'full_html' => 'full_html',
+          'plain_text' => 'plain_text',
+          'wysiwyg' => 'wysiwyg',
+        ),
+        'allowed_formats_toggle' => 0,
+        'default_order_toggle' => 0,
+        'default_order_wrapper' => array(
+          'formats' => array(
+            'ds_code' => array(
+              'weight' => 12,
+            ),
+            'filtered_html' => array(
+              'weight' => 0,
+            ),
+            'full_html' => array(
+              'weight' => 1,
+            ),
+            'plain_text' => array(
+              'weight' => 10,
+            ),
+            'wysiwyg' => array(
+              'weight' => 0,
+            ),
+          ),
+        ),
+      ),
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 5,
+    ),
+  );
+
   // Exported field_instance: 'taxonomy_term-podcast_show-field_show_copyright'.
   $field_instances['taxonomy_term-podcast_show-field_show_copyright'] = array(
     'bundle' => 'podcast_show',
@@ -495,7 +594,7 @@ function luggage_podcasts_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 0,
+        'weight' => 2,
       ),
     ),
     'entity_type' => 'taxonomy_term',
@@ -543,13 +642,13 @@ function luggage_podcasts_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 4,
+      'weight' => 7,
     ),
   );
 
   // Exported field_instance:
-  // 'taxonomy_term-podcast_show-field_show_itunes_author_email'.
-  $field_instances['taxonomy_term-podcast_show-field_show_itunes_author_email'] = array(
+  // 'taxonomy_term-podcast_show-field_show_itunes_category'.
+  $field_instances['taxonomy_term-podcast_show-field_show_itunes_category'] = array(
     'bundle' => 'podcast_show',
     'default_value' => NULL,
     'deleted' => 0,
@@ -557,33 +656,31 @@ function luggage_podcasts_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'email',
+        'module' => 'taxonomy',
         'settings' => array(),
-        'type' => 'email_default',
-        'weight' => 4,
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 7,
       ),
     ),
     'entity_type' => 'taxonomy_term',
-    'field_name' => 'field_show_itunes_author_email',
-    'label' => 'iTunes Author Email',
+    'field_name' => 'field_show_itunes_category',
+    'label' => 'iTunes Category',
     'required' => 1,
     'settings' => array(
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'email',
-      'settings' => array(
-        'size' => 60,
-      ),
-      'type' => 'email_textfield',
-      'weight' => 7,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 8,
     ),
   );
 
   // Exported field_instance:
-  // 'taxonomy_term-podcast_show-field_show_itunes_author_name'.
-  $field_instances['taxonomy_term-podcast_show-field_show_itunes_author_name'] = array(
+  // 'taxonomy_term-podcast_show-field_show_itunes_explicit'.
+  $field_instances['taxonomy_term-podcast_show-field_show_itunes_explicit'] = array(
     'bundle' => 'podcast_show',
     'default_value' => NULL,
     'deleted' => 0,
@@ -591,15 +688,47 @@ function luggage_podcasts_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'text',
+        'module' => 'list',
         'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 5,
+        'type' => 'list_default',
+        'weight' => 9,
       ),
     ),
     'entity_type' => 'taxonomy_term',
-    'field_name' => 'field_show_itunes_author_name',
-    'label' => 'iTunes Author Name',
+    'field_name' => 'field_show_itunes_explicit',
+    'label' => 'iTunes Explicit',
+    'required' => 1,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 10,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'taxonomy_term-podcast_show-field_show_itunes_owner'.
+  $field_instances['taxonomy_term-podcast_show-field_show_itunes_owner'] = array(
+    'bundle' => 'podcast_show',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Enter owner\'s email address followed by their name, separating them with comma.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 8,
+      ),
+    ),
+    'entity_type' => 'taxonomy_term',
+    'field_name' => 'field_show_itunes_owner',
+    'label' => 'iTunes Owner',
     'required' => 1,
     'settings' => array(
       'better_formats' => array(
@@ -642,71 +771,7 @@ function luggage_podcasts_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 6,
-    ),
-  );
-
-  // Exported field_instance:
-  // 'taxonomy_term-podcast_show-field_show_itunes_category'.
-  $field_instances['taxonomy_term-podcast_show-field_show_itunes_category'] = array(
-    'bundle' => 'podcast_show',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'taxonomy',
-        'settings' => array(),
-        'type' => 'taxonomy_term_reference_link',
-        'weight' => 6,
-      ),
-    ),
-    'entity_type' => 'taxonomy_term',
-    'field_name' => 'field_show_itunes_category',
-    'label' => 'iTunes Category',
-    'required' => 1,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(),
-      'type' => 'options_select',
-      'weight' => 5,
-    ),
-  );
-
-  // Exported field_instance:
-  // 'taxonomy_term-podcast_show-field_show_itunes_explicit'.
-  $field_instances['taxonomy_term-podcast_show-field_show_itunes_explicit'] = array(
-    'bundle' => 'podcast_show',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'list',
-        'settings' => array(),
-        'type' => 'list_default',
-        'weight' => 7,
-      ),
-    ),
-    'entity_type' => 'taxonomy_term',
-    'field_name' => 'field_show_itunes_explicit',
-    'label' => 'iTunes Explicit',
-    'required' => 1,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(),
-      'type' => 'options_select',
-      'weight' => 8,
+      'weight' => 9,
     ),
   );
 
@@ -724,7 +789,7 @@ function luggage_podcasts_field_default_field_instances() {
           'image_style' => '',
         ),
         'type' => 'image',
-        'weight' => 1,
+        'weight' => 3,
       ),
     ),
     'entity_type' => 'taxonomy_term',
@@ -734,7 +799,7 @@ function luggage_podcasts_field_default_field_instances() {
     'settings' => array(
       'alt_field' => 0,
       'default_image' => 0,
-      'file_directory' => 'shows',
+      'file_directory' => 'shows/logo',
       'file_extensions' => 'png gif jpg jpeg',
       'max_filesize' => '',
       'max_resolution' => '',
@@ -768,6 +833,64 @@ function luggage_podcasts_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'taxonomy_term-podcast_show-field_show_logo_rss'.
+  $field_instances['taxonomy_term-podcast_show-field_show_logo_rss'] = array(
+    'bundle' => 'podcast_show',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'image',
+        'settings' => array(
+          'image_link' => '',
+          'image_style' => '',
+        ),
+        'type' => 'image',
+        'weight' => 4,
+      ),
+    ),
+    'entity_type' => 'taxonomy_term',
+    'field_name' => 'field_show_logo_rss',
+    'label' => 'Logo (RSS)',
+    'required' => 0,
+    'settings' => array(
+      'alt_field' => 0,
+      'default_image' => 0,
+      'file_directory' => 'shows/logo_rss',
+      'file_extensions' => 'png gif jpg jpeg',
+      'max_filesize' => '',
+      'max_resolution' => '144x400',
+      'min_resolution' => '',
+      'title_field' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'image',
+      'settings' => array(
+        'insert' => 0,
+        'insert_absolute' => 0,
+        'insert_class' => '',
+        'insert_default' => 'auto',
+        'insert_styles' => array(
+          'auto' => 'auto',
+          'icon_link' => 0,
+          'image' => 0,
+          'image_large' => 0,
+          'image_medium' => 0,
+          'image_thumbnail' => 0,
+          'link' => 0,
+        ),
+        'insert_width' => '',
+        'preview_image_style' => 'thumbnail',
+        'progress_indicator' => 'throbber',
+      ),
+      'type' => 'image_image',
+      'weight' => 4,
+    ),
+  );
+
   // Exported field_instance: 'taxonomy_term-podcast_show-field_show_subtitle'.
   $field_instances['taxonomy_term-podcast_show-field_show_subtitle'] = array(
     'bundle' => 'podcast_show',
@@ -780,7 +903,7 @@ function luggage_podcasts_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 2,
+        'weight' => 0,
       ),
     ),
     'entity_type' => 'taxonomy_term',
@@ -834,23 +957,26 @@ function luggage_podcasts_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Author Email');
+  t('Author Name');
   t('Category');
   t('Chapters');
   t('Copyright');
   t('Description');
+  t('Enter owner\'s email address followed by their name, separating them with comma.');
   t('Episode');
   t('File');
   t('Logo');
+  t('Logo (RSS)');
   t('Season');
   t('Show');
   t('Subtitle');
   t('Time');
   t('Title');
   t('URL');
-  t('iTunes Author Email');
-  t('iTunes Author Name');
   t('iTunes Category');
   t('iTunes Explicit');
+  t('iTunes Owner');
 
   return $field_instances;
 }
