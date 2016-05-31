@@ -25,7 +25,7 @@ drush en getid3
 
 cd luggage
 
-git clone https://github.com/isubit/luggage_podcasts
+git clone https://github.com/isubit/luggage_podcasts.git
 drush en luggage_podcasts
 ```
 
