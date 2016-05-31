@@ -221,7 +221,7 @@ function luggage_podcasts_views_default_views() {
         'image' => '',
         'author' => 'field_show_author_name',
         'isClosedCaptioned' => '',
-        'explicit' => 'nothing',
+        'explicit' => 'field_show_itunes_explicit',
         'block' => '',
         'order' => '',
       ),
@@ -340,14 +340,6 @@ function luggage_podcasts_views_default_views() {
   $handler->display->display_options['fields']['field_podcast_file_1']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_podcast_file_1']['click_sort_column'] = 'fid';
   $handler->display->display_options['fields']['field_podcast_file_1']['type'] = 'itunes:duration';
-  /* Field: item:itunes:explicit */
-  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
-  $handler->display->display_options['fields']['nothing']['table'] = 'views';
-  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
-  $handler->display->display_options['fields']['nothing']['ui_name'] = 'item:itunes:explicit';
-  $handler->display->display_options['fields']['nothing']['label'] = '';
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = 'clean';
-  $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
   /* Field: item:author */
   $handler->display->display_options['fields']['field_show_author_name']['id'] = 'field_show_author_name';
   $handler->display->display_options['fields']['field_show_author_name']['table'] = 'field_data_field_show_author_name';
@@ -357,6 +349,15 @@ function luggage_podcasts_views_default_views() {
   $handler->display->display_options['fields']['field_show_author_name']['label'] = '';
   $handler->display->display_options['fields']['field_show_author_name']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_show_author_name']['type'] = 'text_plain';
+  /* Field: item:itunes:explicit */
+  $handler->display->display_options['fields']['field_show_itunes_explicit']['id'] = 'field_show_itunes_explicit';
+  $handler->display->display_options['fields']['field_show_itunes_explicit']['table'] = 'field_data_field_show_itunes_explicit';
+  $handler->display->display_options['fields']['field_show_itunes_explicit']['field'] = 'field_show_itunes_explicit';
+  $handler->display->display_options['fields']['field_show_itunes_explicit']['relationship'] = 'field_podcast_show_tid';
+  $handler->display->display_options['fields']['field_show_itunes_explicit']['ui_name'] = 'item:itunes:explicit';
+  $handler->display->display_options['fields']['field_show_itunes_explicit']['label'] = '';
+  $handler->display->display_options['fields']['field_show_itunes_explicit']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_show_itunes_explicit']['type'] = 'list_key';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: Content: Show (field_podcast_show) */
   $handler->display->display_options['arguments']['field_podcast_show_tid']['id'] = 'field_podcast_show_tid';
