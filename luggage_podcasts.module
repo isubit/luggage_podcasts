@@ -49,9 +49,9 @@ function template_preprocess_luggage_podcasts_player(&$variables) {
 
   $options['show']['title'] = $show->name;
 
-  if (!empty($show->field_show_subtitle[LANGUAGE_NONE][0]['value'])) {
-    $options['show']['subtitle'] = $show->field_show_subtitle[LANGUAGE_NONE][0]['value'];
-  }
+//  if (!empty($show->field_show_subtitle[LANGUAGE_NONE][0]['value'])) {
+//    $options['show']['subtitle'] = $show->field_show_subtitle[LANGUAGE_NONE][0]['value'];
+//  }
 
   if (!empty($show->description)) {
     $options['show']['summary'] = $show->description;
