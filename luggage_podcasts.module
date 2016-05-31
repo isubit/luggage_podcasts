@@ -30,6 +30,9 @@ function luggage_podcasts_preprocess_node(&$variables) {
   }
 }
 
+/**
+ * Preprocess function for the luggage_podcasts_player theme template
+ */
 function template_preprocess_luggage_podcasts_player(&$variables) {
 
   // Build player options
