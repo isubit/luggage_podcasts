@@ -15,7 +15,7 @@ rm getid3-1.8.5-20110218.zip
 mv getid3-1.8.5-20110218 getid3
 rm -rf getid3/demos
 
-git clone https://github.com/isubit/luggage_podcasts_player.git podlove-web-player
+git clone https://github.com/isubit/luggage_podcasts_player.git
 
 cd $DRUPAL_ROOT/sites/all/modules
 
