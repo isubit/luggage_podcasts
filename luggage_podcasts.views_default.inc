@@ -64,6 +64,7 @@ function luggage_podcasts_views_default_views() {
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
   $handler->display->display_options['row_plugin'] = 'entity';
   $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['header'] = FALSE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
   $handler->display->display_options['displays'] = array(
     'show_page' => 'show_page',
@@ -83,6 +84,29 @@ function luggage_podcasts_views_default_views() {
   $handler->display->display_options['row_plugin'] = 'fields';
   $handler->display->display_options['row_options']['hide_empty'] = TRUE;
   $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['header'] = FALSE;
+  /* Header: Global: Text area */
+  $handler->display->display_options['header']['area']['id'] = 'area';
+  $handler->display->display_options['header']['area']['table'] = 'views';
+  $handler->display->display_options['header']['area']['field'] = 'area';
+  $handler->display->display_options['header']['area']['label'] = 'Subtitle';
+  $handler->display->display_options['header']['area']['content'] = '<h2>[field_show_subtitle]</h2>';
+  $handler->display->display_options['header']['area']['format'] = 'full_html';
+  $handler->display->display_options['header']['area']['tokenize'] = TRUE;
+  /* Header: Global: Text area */
+  $handler->display->display_options['header']['area_1']['id'] = 'area_1';
+  $handler->display->display_options['header']['area_1']['table'] = 'views';
+  $handler->display->display_options['header']['area_1']['field'] = 'area';
+  $handler->display->display_options['header']['area_1']['label'] = 'Description';
+  $handler->display->display_options['header']['area_1']['content'] = '<header id="show-subtitle" class="node clearfix"><p>[description]</p></header>';
+  $handler->display->display_options['header']['area_1']['format'] = 'full_html';
+  $handler->display->display_options['header']['area_1']['tokenize'] = TRUE;
+  $handler->display->display_options['defaults']['relationships'] = FALSE;
+  /* Relationship: Content: Show (field_podcast_show) */
+  $handler->display->display_options['relationships']['field_podcast_show_tid']['id'] = 'field_podcast_show_tid';
+  $handler->display->display_options['relationships']['field_podcast_show_tid']['table'] = 'field_data_field_podcast_show';
+  $handler->display->display_options['relationships']['field_podcast_show_tid']['field'] = 'field_podcast_show_tid';
+  $handler->display->display_options['relationships']['field_podcast_show_tid']['required'] = TRUE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Content: Season */
   $handler->display->display_options['fields']['field_podcast_season']['id'] = 'field_podcast_season';
@@ -137,6 +161,22 @@ function luggage_podcasts_views_default_views() {
   $handler->display->display_options['fields']['field_podcast_description']['field'] = 'field_podcast_description';
   $handler->display->display_options['fields']['field_podcast_description']['label'] = '';
   $handler->display->display_options['fields']['field_podcast_description']['element_label_colon'] = FALSE;
+  /* Field: Taxonomy term: Subtitle */
+  $handler->display->display_options['fields']['field_show_subtitle']['id'] = 'field_show_subtitle';
+  $handler->display->display_options['fields']['field_show_subtitle']['table'] = 'field_data_field_show_subtitle';
+  $handler->display->display_options['fields']['field_show_subtitle']['field'] = 'field_show_subtitle';
+  $handler->display->display_options['fields']['field_show_subtitle']['relationship'] = 'field_podcast_show_tid';
+  $handler->display->display_options['fields']['field_show_subtitle']['label'] = '';
+  $handler->display->display_options['fields']['field_show_subtitle']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_show_subtitle']['element_label_colon'] = FALSE;
+  /* Field: Taxonomy term: Term description */
+  $handler->display->display_options['fields']['description']['id'] = 'description';
+  $handler->display->display_options['fields']['description']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['fields']['description']['field'] = 'description';
+  $handler->display->display_options['fields']['description']['relationship'] = 'field_podcast_show_tid';
+  $handler->display->display_options['fields']['description']['label'] = '';
+  $handler->display->display_options['fields']['description']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['description']['element_label_colon'] = FALSE;
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: Content: Show (field_podcast_show) */
   $handler->display->display_options['arguments']['field_podcast_show_tid']['id'] = 'field_podcast_show_tid';

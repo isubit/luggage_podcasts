@@ -394,3 +394,12 @@ function luggage_podcasts_preprocess_views_rss_core_channel_image(&$variables) {
   }
 
 }
+
+/*
+ * Implements hook_views_pre_build()
+ */
+function luggage_podcasts_views_pre_build(&$view) {
+  if($view->name == 'luggage_podcasts' && $view->current_display == 'show_page') {
+    drupal_add_css(drupal_get_path('module', 'luggage_podcasts') . '/css/view-luggage-podcasts--show-page.css');
+  }
+}
