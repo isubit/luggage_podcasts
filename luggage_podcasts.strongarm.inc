@@ -57,16 +57,16 @@ function luggage_podcasts_strongarm() {
     'extra_fields' => array(
       'form' => array(
         'title' => array(
-          'weight' => '1',
+          'weight' => '3',
         ),
         'path' => array(
-          'weight' => '8',
+          'weight' => '9',
         ),
       ),
       'display' => array(
         'sharethis' => array(
           'default' => array(
-            'weight' => '7',
+            'weight' => '8',
             'visible' => TRUE,
           ),
         ),

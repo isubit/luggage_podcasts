@@ -204,7 +204,7 @@ function luggage_podcasts_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
-        'weight' => 3,
+        'weight' => 6,
       ),
     ),
     'entity_type' => 'node',
@@ -219,7 +219,7 @@ function luggage_podcasts_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 6,
+      'weight' => 7,
     ),
   );
 
@@ -237,7 +237,7 @@ function luggage_podcasts_field_default_field_instances() {
           'view_mode' => 'default',
         ),
         'type' => 'multifield_default',
-        'weight' => 5,
+        'weight' => 7,
       ),
     ),
     'entity_type' => 'node',
@@ -252,7 +252,7 @@ function luggage_podcasts_field_default_field_instances() {
       'module' => 'multifield',
       'settings' => array(),
       'type' => 'multifield_default',
-      'weight' => 7,
+      'weight' => 8,
     ),
   );
 
@@ -268,7 +268,7 @@ function luggage_podcasts_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 4,
+        'weight' => 3,
       ),
     ),
     'entity_type' => 'node',
@@ -318,7 +318,7 @@ function luggage_podcasts_field_default_field_instances() {
         'summary_rows' => 5,
       ),
       'type' => 'text_textarea_with_summary',
-      'weight' => 2,
+      'weight' => 4,
     ),
   );
 
@@ -358,7 +358,7 @@ function luggage_podcasts_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 5,
+      'weight' => 2,
     ),
   );
 
@@ -373,7 +373,7 @@ function luggage_podcasts_field_default_field_instances() {
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_default',
-        'weight' => 6,
+        'weight' => 5,
       ),
     ),
     'entity_type' => 'node',
@@ -382,7 +382,7 @@ function luggage_podcasts_field_default_field_instances() {
     'required' => 1,
     'settings' => array(
       'description_field' => 0,
-      'file_directory' => 'podcasts',
+      'file_directory' => 'podcasts/files',
       'file_extensions' => 'mp3',
       'max_filesize' => '',
       'user_register_form' => FALSE,
@@ -399,6 +399,9 @@ function luggage_podcasts_field_default_field_instances() {
           'auto' => 'auto',
           'icon_link' => 0,
           'image' => 0,
+          'image_announcement_full' => 0,
+          'image_flexslider_full' => 0,
+          'image_flexslider_thumbnail' => 0,
           'image_large' => 0,
           'image_medium' => 0,
           'image_thumbnail' => 0,
@@ -408,7 +411,68 @@ function luggage_podcasts_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'file_generic',
-      'weight' => 3,
+      'weight' => 6,
+    ),
+  );
+
+  // Exported field_instance: 'node-podcast-field_podcast_image'.
+  $field_instances['node-podcast-field_podcast_image'] = array(
+    'bundle' => 'podcast',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'image',
+        'settings' => array(
+          'image_link' => '',
+          'image_style' => '',
+        ),
+        'type' => 'image',
+        'weight' => 4,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_podcast_image',
+    'label' => 'Image(s)',
+    'required' => 0,
+    'settings' => array(
+      'alt_field' => 1,
+      'default_image' => 0,
+      'file_directory' => 'podcasts/images',
+      'file_extensions' => 'png gif jpg jpeg',
+      'max_filesize' => '',
+      'max_resolution' => '',
+      'min_resolution' => '',
+      'title_field' => 1,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'image',
+      'settings' => array(
+        'insert' => 1,
+        'insert_absolute' => 0,
+        'insert_class' => 'insert-default-image-styling',
+        'insert_default' => 'auto',
+        'insert_styles' => array(
+          'auto' => 'auto',
+          'icon_link' => 0,
+          'image' => 0,
+          'image_announcement_full' => 0,
+          'image_flexslider_full' => 0,
+          'image_flexslider_thumbnail' => 0,
+          'image_large' => 0,
+          'image_medium' => 0,
+          'image_thumbnail' => 0,
+          'link' => 0,
+        ),
+        'insert_width' => 300,
+        'preview_image_style' => 'thumbnail',
+        'progress_indicator' => 'throbber',
+      ),
+      'type' => 'image_image',
+      'weight' => 5,
     ),
   );
 
@@ -448,7 +512,7 @@ function luggage_podcasts_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 4,
+      'weight' => 1,
     ),
   );
 
@@ -463,7 +527,7 @@ function luggage_podcasts_field_default_field_instances() {
         'label' => 'above',
         'module' => 'taxonomy',
         'settings' => array(),
-        'type' => 'taxonomy_term_reference_link',
+        'type' => 'taxonomy_term_reference_plain',
         'weight' => 0,
       ),
     ),
@@ -819,6 +883,9 @@ function luggage_podcasts_field_default_field_instances() {
           'auto' => 'auto',
           'icon_link' => 0,
           'image' => 0,
+          'image_announcement_full' => 0,
+          'image_flexslider_full' => 0,
+          'image_flexslider_thumbnail' => 0,
           'image_large' => 0,
           'image_medium' => 0,
           'image_thumbnail' => 0,
@@ -966,6 +1033,7 @@ function luggage_podcasts_field_default_field_instances() {
   t('Enter owner\'s email address followed by their name, separating them with comma.');
   t('Episode');
   t('File');
+  t('Image(s)');
   t('Logo');
   t('Logo (RSS)');
   t('Season');
