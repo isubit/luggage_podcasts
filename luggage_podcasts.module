@@ -76,7 +76,7 @@ function template_preprocess_luggage_podcasts_player(&$variables) {
   $options['subtitle'] = format_date($node->created, 'custom', 'm/d/Y');
 
   $options['summary'] = $node->field_podcast_description[LANGUAGE_NONE][0]['value'];
-  $options['poster'] = $GLOBALS['base_url'] . '/' . drupal_get_path('module', 'luggage_podcasts') . '/images/default-avatar.jpg';
+//  $options['poster'] = $GLOBALS['base_url'] . '/' . drupal_get_path('module', 'luggage_podcasts') . '/images/default-avatar.jpg';
   $options['permalink'] = url('node/' . $node->nid, array('absolute' => TRUE));
 
   $file_id3_info = views_rss_itunes_get_file_info($node->field_podcast_file[LANGUAGE_NONE][0]['uri']);
