@@ -11,9 +11,9 @@ include_once 'luggage_podcasts.features.inc';
  */
 function luggage_podcasts_theme($existing, $type, $theme, $path) {
   return array(
-    'luggage_podcasts_player' => array(
+    'node__podcast__full' => array(
       'render element'  => 'elements',
-      'template' => 'podcast-player',
+      'template' => 'node--podcast--full',
       'path' => drupal_get_path('module','luggage_podcasts') . '/templates'
     )
   );
@@ -22,21 +22,17 @@ function luggage_podcasts_theme($existing, $type, $theme, $path) {
 /**
  * Implements template_preprocess_node()
  */
-
 function luggage_podcasts_preprocess_node(&$variables) {
-  if ($variables['node']->type == 'podcast' && $variables['view_mode'] == 'full') {
-    $variables['content']['#node'] = $variables['node'];
-    $variables['content']['#theme_wrappers'][] = 'luggage_podcasts_player';
-  }
-}
 
-/**
- * Preprocess function for the luggage_podcasts_player theme template
- */
-function template_preprocess_luggage_podcasts_player(&$variables) {
+  $node = $variables['node'];
+
+  if (!($node->type == 'podcast' && $variables['view_mode'] == 'full')) {
+    return;
+  }
+
+  $variables['theme_hook_suggestions'][] = 'node__' . $node->type . '__' . $variables['view_mode'];
 
   // Build player options
-  $node = $variables['elements']['#node'];
 
   $options = array(
     'alwaysShowHours' => TRUE,
@@ -120,7 +116,6 @@ function template_preprocess_luggage_podcasts_player(&$variables) {
 
   // Set template variables
   
-  $variables['content'] = $variables['elements']['#children'];
   $variables['player_id'] = drupal_html_id($node->nid);
   $variables['library_dir'] = $library_dir;
   $variables['file_url'] = $file_url;
