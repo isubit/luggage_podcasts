@@ -88,6 +88,7 @@ features[variable][] = node_submitted_podcast
 features[variable][] = pathauto_node_podcast_pattern
 features[variable][] = pathauto_taxonomy_term_podcast_show_pattern
 features[variable][] = sharethis_podcast_options
+features[variable][] = xmlsitemap_settings_node_podcast
 features[views_view][] = luggage_podcasts
 features_exclude[dependencies][luggage_podcasts] = luggage_podcasts
 features_exclude[taxonomy][views_rss_itunes_category] = views_rss_itunes_category

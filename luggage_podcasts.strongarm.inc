@@ -119,6 +119,7 @@ function luggage_podcasts_strongarm() {
   $strongarm->value = array(
     0 => 'status',
     1 => 'promote',
+    0 => 'revision',
   );
   $export['node_options_podcast'] = $strongarm;
 
@@ -126,7 +127,7 @@ function luggage_podcasts_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'node_preview_podcast';
-  $strongarm->value = '1';
+  $strongarm->value = '0';
   $export['node_preview_podcast'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -165,6 +166,16 @@ function luggage_podcasts_strongarm() {
     'revision' => 0,
   );
   $export['sharethis_podcast_options'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'xmlsitemap_settings_node_podcast';
+  $strongarm->value = array(
+    'status' => '1',
+    'priority' => '0.5',
+  );
+  $export['xmlsitemap_settings_node_podcast'] = $strongarm;
 
   return $export;
 }
