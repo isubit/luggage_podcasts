@@ -117,7 +117,7 @@ function luggage_podcasts_strongarm() {
   $strongarm->api_version = 1;
   $strongarm->name = 'node_options_podcast';
   $strongarm->value = array(
-    0 => 'status',
+    1 => 'status',
     0 => 'revision',
   );
   $export['node_options_podcast'] = $strongarm;

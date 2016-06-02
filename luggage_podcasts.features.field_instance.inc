@@ -16,7 +16,7 @@ function luggage_podcasts_field_default_field_instances() {
     'bundle' => 'podcast_chapters',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'Format: hh:mm:ss',
     'display' => array(
       'default' => array(
         'label' => 'above',
