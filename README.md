@@ -10,9 +10,8 @@ Commandline where $DRUPAL_ROOT is the root of your Drupal site:
 cd $DRUPAL_ROOT/sites/all/libraries
 
 curl -L 'https://sourceforge.net/projects/getid3/files/getID3%28%29%201.x/1.8.5/getid3-1.8.5-20110218.zip' > getid3-1.8.5-20110218.zip
-unzip getid3-1.8.5-20110218.zip
+unzip -d getid3 getid3-1.8.5-20110218.zip
 rm getid3-1.8.5-20110218.zip
-mv getid3-1.8.5-20110218 getid3
 rm -rf getid3/demos
 
 git clone https://github.com/isubit/luggage_podcasts_player.git
