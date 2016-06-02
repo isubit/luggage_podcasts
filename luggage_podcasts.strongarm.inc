@@ -60,7 +60,7 @@ function luggage_podcasts_strongarm() {
           'weight' => '3',
         ),
         'path' => array(
-          'weight' => '9',
+          'weight' => '10',
         ),
       ),
       'display' => array(
@@ -118,7 +118,6 @@ function luggage_podcasts_strongarm() {
   $strongarm->name = 'node_options_podcast';
   $strongarm->value = array(
     0 => 'status',
-    1 => 'promote',
     0 => 'revision',
   );
   $export['node_options_podcast'] = $strongarm;

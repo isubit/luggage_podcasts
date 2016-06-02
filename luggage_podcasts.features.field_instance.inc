@@ -252,7 +252,7 @@ function luggage_podcasts_field_default_field_instances() {
       'module' => 'multifield',
       'settings' => array(),
       'type' => 'multifield_default',
-      'weight' => 8,
+      'weight' => 9,
     ),
   );
 
@@ -544,6 +544,41 @@ function luggage_podcasts_field_default_field_instances() {
       'settings' => array(),
       'type' => 'options_select',
       'weight' => 0,
+    ),
+  );
+
+  // Exported field_instance: 'node-podcast-field_tags'.
+  $field_instances['node-podcast-field_tags'] = array(
+    'bundle' => 'podcast',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Add Tags to help users find related content. Enter Tags as a comma delimited string.
+Baseball, bat, glove, ...',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 8,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_tags',
+    'label' => 'Tags',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'taxonomy',
+      'settings' => array(
+        'autocomplete_path' => 'taxonomy/autocomplete',
+        'size' => 60,
+      ),
+      'type' => 'taxonomy_autocomplete',
+      'weight' => 8,
     ),
   );
 
@@ -1024,6 +1059,8 @@ function luggage_podcasts_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Add Tags to help users find related content. Enter Tags as a comma delimited string.
+Baseball, bat, glove, ...');
   t('Author Email');
   t('Author Name');
   t('Category');
@@ -1039,6 +1076,7 @@ function luggage_podcasts_field_default_field_instances() {
   t('Season');
   t('Show');
   t('Subtitle');
+  t('Tags');
   t('Time');
   t('Title');
   t('URL');

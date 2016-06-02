@@ -60,6 +60,7 @@ features[field_instance][] = node-podcast-field_podcast_file
 features[field_instance][] = node-podcast-field_podcast_image
 features[field_instance][] = node-podcast-field_podcast_season
 features[field_instance][] = node-podcast-field_podcast_show
+features[field_instance][] = node-podcast-field_tags
 features[field_instance][] = taxonomy_term-podcast_show-field_show_author_email
 features[field_instance][] = taxonomy_term-podcast_show-field_show_author_name
 features[field_instance][] = taxonomy_term-podcast_show-field_show_copyright
