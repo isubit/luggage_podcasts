@@ -190,7 +190,6 @@ function luggage_podcasts_views_default_views() {
   $handler->display->display_options['arguments']['field_podcast_show_tid']['field'] = 'field_podcast_show_tid';
   $handler->display->display_options['arguments']['field_podcast_show_tid']['default_action'] = 'not found';
   $handler->display->display_options['arguments']['field_podcast_show_tid']['default_argument_type'] = 'fixed';
-  $handler->display->display_options['arguments']['field_podcast_show_tid']['default_argument_skip_url'] = TRUE;
   $handler->display->display_options['arguments']['field_podcast_show_tid']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['field_podcast_show_tid']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['field_podcast_show_tid']['summary_options']['items_per_page'] = '25';
@@ -411,7 +410,6 @@ function luggage_podcasts_views_default_views() {
   $handler->display->display_options['arguments']['field_podcast_show_tid']['field'] = 'field_podcast_show_tid';
   $handler->display->display_options['arguments']['field_podcast_show_tid']['default_action'] = 'not found';
   $handler->display->display_options['arguments']['field_podcast_show_tid']['default_argument_type'] = 'fixed';
-  $handler->display->display_options['arguments']['field_podcast_show_tid']['default_argument_skip_url'] = TRUE;
   $handler->display->display_options['arguments']['field_podcast_show_tid']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['field_podcast_show_tid']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['field_podcast_show_tid']['summary_options']['items_per_page'] = '25';
