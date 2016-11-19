@@ -85,13 +85,20 @@ function luggage_podcasts_preprocess_node(&$variables) {
 
   if (!empty($node->field_podcast_chapters)) {
     foreach ($node->field_podcast_chapters[LANGUAGE_NONE] as $chapter_delta => $chapter_item) {
+
       // field_podcast_chapters_time format is hh:mm:ss
       // start format is hh:mm:ss.xxx where xxx is the number of milliseconds
-      $options['chapters'][] = array(
+      $chapter = array(
         'start' => $chapter_item['field_podcast_chapters_time'][LANGUAGE_NONE][0]['value'] . '.000',
         'title' => $chapter_item['field_podcast_chapters_title'][LANGUAGE_NONE][0]['value'],
-        'url' => $chapter_item['field_podcast_chapters_url'][LANGUAGE_NONE][0]['url'],
       );
+
+      if (!empty($chapter_item['field_podcast_chapters_url'][LANGUAGE_NONE][0]['url'])) {
+        $chapter['url'] = $chapter_item['field_podcast_chapters_url'][LANGUAGE_NONE][0]['url'];
+      }
+
+      $options['chapters'][] = $chapter;
+
     }
   }
 
