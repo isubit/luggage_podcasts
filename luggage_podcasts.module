@@ -118,6 +118,7 @@ function luggage_podcasts_preprocess_node(&$variables) {
 
   $library_dir = $GLOBALS['base_url'] . '/' . libraries_get_path('luggage_podcasts_player');
   drupal_add_js(array('luggage_podcasts' => array('library_dir' => $library_dir)), 'setting');
+  drupal_add_js(libraries_get_path('luggage_podcasts_player') . '/js/vendor/iframeResizer.min.js');
   drupal_add_js(libraries_get_path('luggage_podcasts_player') . '/js/podlove-web-moderator.min.js');
   drupal_add_js(drupal_get_path('module', 'luggage_podcasts') . '/js/load_players.js', array('scope' => 'footer'));
 
