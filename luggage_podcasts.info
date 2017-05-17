@@ -70,6 +70,7 @@ features[field_instance][] = taxonomy_term-podcast_show-field_show_itunes_owner
 features[field_instance][] = taxonomy_term-podcast_show-field_show_logo
 features[field_instance][] = taxonomy_term-podcast_show-field_show_logo_rss
 features[field_instance][] = taxonomy_term-podcast_show-field_show_subtitle
+features[metatag][] = node:podcast
 features[multifield][] = podcast_chapters
 features[node][] = podcast
 features[taxonomy][] = podcast_show
