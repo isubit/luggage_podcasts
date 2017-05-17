@@ -306,7 +306,7 @@ function luggage_podcasts_field_default_field_instances() {
           ),
         ),
       ),
-      'display_summary' => 0,
+      'display_summary' => 1,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
