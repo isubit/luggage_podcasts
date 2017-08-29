@@ -266,11 +266,16 @@ function luggage_podcasts_preprocess_views_rss_channel_element_value(&$variables
     return;
   }
 
-  $elements = array();
-  $element_key = $variables['elements'][0]['key'];
-
   $term = taxonomy_term_load($variables['view']->argument['field_podcast_show_tid']->get_value());
+
+  if (!$term) {
+    return;
+  }
+
+  $element_key = $variables['elements'][0]['key'];
   $term_field_name = $variables['elements'][0]['value'];
+
+  $elements = array();
 
   if ($term_field_name == 'name') {
     $elements[] = array(
