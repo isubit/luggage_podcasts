@@ -48,6 +48,12 @@
   <!--<![endif]-->
 
   <?php
+    if (isset($content['field_podcast_citations'])) {
+      print render($content['field_podcast_citations']);
+    }
+  ?>
+
+  <?php
     if (isset($content['sharethis'])) {
       print render($content['sharethis']);
     }
